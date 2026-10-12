@@ -35,6 +35,14 @@ if (fs.existsSync(envPath)) {
             value = value.slice(1, -1);
         }
 
+        // Skip the untouched example values from .env.example
+        // (e.g. "cluster0.xxxxx" / "USER:PASSWORD"), so the app
+        // falls back to local MongoDB instead of crashing.
+        const isPlaceholder =
+            /xxxxx|USER:PASSWORD|change-this/.test(value);
+
+        if (!value || isPlaceholder) continue;
+
         if (key && process.env[key] === undefined) {
             process.env[key] = value;
         }
