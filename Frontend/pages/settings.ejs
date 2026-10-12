@@ -1,0 +1,480 @@
+<%- include("../components/header") %>
+
+<%
+    const initials = user.name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part.charAt(0).toUpperCase())
+        .join("");
+
+    const roleText = user.role === "admin" ? "Administrator" : "Worker";
+%>
+
+<div class="dashboard-page">
+
+    <%- include("../components/navbar") %>
+
+    <div class="dashboard-layout">
+
+        <%- include("../components/sidebar") %>
+
+        <main class="dashboard-content">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        ACCOUNT SETTINGS
+                    </p>
+
+                    <h1>Settings</h1>
+
+                    <p>
+                        Manage your account and system preferences.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- SETTINGS MENU -->
+
+                <div class="col-lg-3">
+
+                    <div class="settings-menu">
+
+                        <button
+                            class="settings-menu-item active"
+                            data-section="account"
+                        >
+                            <i class="bi bi-person"></i>
+                            Account
+                        </button>
+
+                        <button
+                            class="settings-menu-item"
+                            data-section="password"
+                        >
+                            <i class="bi bi-lock"></i>
+                            Password
+                        </button>
+
+                        <button
+                            class="settings-menu-item"
+                            data-section="notifications"
+                        >
+                            <i class="bi bi-bell"></i>
+                            Notifications
+                        </button>
+
+                        <button
+                            class="settings-menu-item"
+                            data-logout
+                        >
+                            <i class="bi bi-box-arrow-right"></i>
+                            Logout
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SETTINGS CONTENT -->
+
+                <div class="col-lg-9">
+
+
+                    <!-- ACCOUNT -->
+
+                    <div
+                        class="settings-section active"
+                        id="account"
+                    >
+
+                        <div class="dashboard-card">
+
+                            <div class="card-heading">
+
+                                <div>
+
+                                    <h3>Account Information</h3>
+
+                                    <p>
+                                        Update your personal information.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <form id="accountForm" novalidate>
+
+                                <div class="settings-profile">
+
+                                    <div class="settings-avatar" id="settingsAvatar">
+                                        <%= initials %>
+                                    </div>
+
+                                    <div>
+
+                                        <h4 id="settingsName"><%= user.name %></h4>
+
+                                        <p>
+                                            <%= user.workerId ? "Worker ID: " + user.workerId : roleText %>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="tm-form-message" id="accountMessage"></div>
+
+
+                                <div class="settings-form-grid">
+
+                                    <div class="settings-field">
+
+                                        <label for="settingsFullName">
+                                            Full Name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="settingsFullName"
+                                            name="name"
+                                            value="<%= user.name %>"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="settings-field">
+
+                                        <label>
+                                            Worker ID
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            value="<%= user.workerId || '--' %>"
+                                            disabled
+                                        >
+
+                                    </div>
+
+
+                                    <div class="settings-field">
+
+                                        <label for="settingsEmail">
+                                            Email Address
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            id="settingsEmail"
+                                            name="email"
+                                            value="<%= user.email %>"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="settings-field">
+
+                                        <label for="settingsPhone">
+                                            Phone Number
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            id="settingsPhone"
+                                            name="phone"
+                                            value="<%= user.phone %>"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="settings-field">
+
+                                        <label>
+                                            Department
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            value="<%= user.department || '--' %>"
+                                            disabled
+                                        >
+
+                                    </div>
+
+
+                                    <div class="settings-field">
+
+                                        <label>
+                                            Role
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            value="<%= roleText %>"
+                                            disabled
+                                        >
+
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    type="submit"
+                                    class="settings-save-btn"
+                                    id="accountSaveBtn"
+                                >
+                                    Save Changes
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div
+                        class="settings-section"
+                        id="password"
+                    >
+
+                        <div class="dashboard-card">
+
+                            <div class="card-heading">
+
+                                <div>
+
+                                    <h3>Change Password</h3>
+
+                                    <p>
+                                        Keep your Timber Mart account secure.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <form id="passwordForm" novalidate>
+
+                                <div class="tm-form-message" id="passwordMessage"></div>
+
+                                <div class="settings-password-form">
+
+                                    <div class="settings-field">
+
+                                        <label for="currentPassword">
+                                            Current Password
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="currentPassword"
+                                            name="currentPassword"
+                                            placeholder="Enter current password"
+                                            autocomplete="current-password"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="settings-field">
+
+                                        <label for="newPassword">
+                                            New Password
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="newPassword"
+                                            name="newPassword"
+                                            placeholder="At least 6 characters"
+                                            autocomplete="new-password"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="settings-field">
+
+                                        <label for="confirmNewPassword">
+                                            Confirm New Password
+                                        </label>
+
+                                        <input
+                                            type="password"
+                                            id="confirmNewPassword"
+                                            name="confirmPassword"
+                                            placeholder="Confirm new password"
+                                            autocomplete="new-password"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+
+                                <button
+                                    type="submit"
+                                    class="settings-save-btn"
+                                    id="passwordSaveBtn"
+                                >
+                                    Update Password
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- NOTIFICATIONS -->
+
+                    <div
+                        class="settings-section"
+                        id="notifications"
+                    >
+
+                        <div class="dashboard-card">
+
+                            <div class="card-heading">
+
+                                <div>
+
+                                    <h3>Notifications</h3>
+
+                                    <p>
+                                        Choose which notifications you receive on this device.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="notification-setting">
+
+                                <div>
+
+                                    <strong>
+                                        Attendance Reminders
+                                    </strong>
+
+                                    <span>
+                                        Receive reminders to check in and out.
+                                    </span>
+
+                                </div>
+
+                                <label class="toggle">
+
+                                    <input
+                                        type="checkbox"
+                                        data-preference="attendanceReminders"
+                                        checked
+                                    >
+
+                                    <span></span>
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="notification-setting">
+
+                                <div>
+
+                                    <strong>
+                                        Attendance Updates
+                                    </strong>
+
+                                    <span>
+                                        Receive updates about your attendance.
+                                    </span>
+
+                                </div>
+
+                                <label class="toggle">
+
+                                    <input
+                                        type="checkbox"
+                                        data-preference="attendanceUpdates"
+                                        checked
+                                    >
+
+                                    <span></span>
+
+                                </label>
+
+                            </div>
+
+
+                            <div class="notification-setting">
+
+                                <div>
+
+                                    <strong>
+                                        System Notifications
+                                    </strong>
+
+                                    <span>
+                                        Receive important Timber Mart updates.
+                                    </span>
+
+                                </div>
+
+                                <label class="toggle">
+
+                                    <input
+                                        type="checkbox"
+                                        data-preference="systemNotifications"
+                                        checked
+                                    >
+
+                                    <span></span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/js/settings.js"></script>
+
+<%- include("../components/footer") %>

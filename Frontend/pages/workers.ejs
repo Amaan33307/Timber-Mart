@@ -1,0 +1,280 @@
+<%- include("../components/header") %>
+
+<div class="dashboard-page">
+
+    <%- include("../components/navbar") %>
+
+    <div class="dashboard-layout">
+
+        <%- include("../components/sidebar") %>
+
+        <main class="dashboard-content" id="workersPage">
+
+            <!-- Page Header -->
+            <div class="page-header">
+
+                <div>
+                    <p class="dashboard-label">
+                        WORKER MANAGEMENT
+                    </p>
+
+                    <h1>Workers</h1>
+
+                    <p>
+                        Manage Timber Mart workers and employee information.
+                    </p>
+                </div>
+
+                <% if (currentUser.role === "admin") { %>
+
+                    <button
+                        class="add-worker-btn"
+                        id="addWorkerBtn"
+                    >
+                        <i class="bi bi-person-plus"></i>
+                        Add Worker
+                    </button>
+
+                <% } %>
+
+            </div>
+
+
+            <% if (currentUser.role !== "admin") { %>
+
+                <div class="dashboard-card">
+
+                    <div class="tm-restricted">
+
+                        <i class="bi bi-shield-lock"></i>
+
+                        <h3>Worker directory is for administrators</h3>
+
+                        <p>
+                            Please contact your Timber Mart administrator
+                            if you need another worker's details.
+                        </p>
+
+                        <a href="/dashboard" class="tm-btn-primary mt-2">
+                            Go to Dashboard
+                        </a>
+
+                    </div>
+
+                </div>
+
+            <% } else { %>
+
+            <!-- Worker Statistics -->
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="worker-stat-card">
+
+                        <div class="worker-stat-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        <div>
+                            <span>Total Workers</span>
+                            <h3 id="dirTotalWorkers">--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="worker-stat-card">
+
+                        <div class="worker-stat-icon active-worker">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+
+                        <div>
+                            <span>Active Workers</span>
+                            <h3 id="dirActiveWorkers">--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="worker-stat-card">
+
+                        <div class="worker-stat-icon working-worker">
+                            <i class="bi bi-person-workspace"></i>
+                        </div>
+
+                        <div>
+                            <span>Working Today</span>
+                            <h3 id="dirWorkingToday">--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="worker-stat-card">
+
+                        <div class="worker-stat-icon absent-worker">
+                            <i class="bi bi-person-x"></i>
+                        </div>
+
+                        <div>
+                            <span>Absent Today</span>
+                            <h3 id="dirAbsentToday">--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search & Filters -->
+            <div class="worker-controls">
+
+                <div class="worker-search">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="text"
+                        id="workerSearch"
+                        placeholder="Search by name, ID or phone..."
+                    >
+
+                </div>
+
+
+                <select id="departmentFilter">
+
+                    <option value="all">
+                        All Departments
+                    </option>
+
+                    <option value="Carpentry">
+                        Carpentry
+                    </option>
+
+                    <option value="Polishing">
+                        Polishing
+                    </option>
+
+                    <option value="Finishing">
+                        Finishing
+                    </option>
+
+                    <option value="Production">
+                        Production
+                    </option>
+
+                    <option value="Warehouse">
+                        Warehouse
+                    </option>
+
+                </select>
+
+
+                <select id="workerStatusFilter">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Workers Table -->
+            <div class="dashboard-card workers-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h3>All Workers</h3>
+
+                        <p>
+                            Timber Mart workforce directory
+                        </p>
+                    </div>
+
+                    <span class="worker-count" id="workerCount">
+                        -- Workers
+                    </span>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table workers-table"
+                        id="workersTable"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Worker</th>
+                                <th>Worker ID</th>
+                                <th>Department</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Joined</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="workersTableBody">
+
+                            <tr>
+                                <td colspan="7" class="tm-table-message">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    <span>Loading workers...</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <% } %>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/js/workers.js"></script>
+
+<%- include("../components/footer") %>

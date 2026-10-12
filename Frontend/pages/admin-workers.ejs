@@ -1,0 +1,185 @@
+<%- include("../components/header") %>
+
+<div class="dashboard-page">
+
+    <%- include("../components/navbar") %>
+
+    <div class="dashboard-layout">
+
+        <%- include("../components/sidebar") %>
+
+
+        <main class="dashboard-content" id="adminWorkersPage">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        ADMINISTRATION
+                    </p>
+
+                    <h1>Manage Workers</h1>
+
+                    <p>
+                        Add, view and manage Timber Mart employees.
+                    </p>
+
+                </div>
+
+                <button
+                    class="add-worker-btn"
+                    id="adminAddWorker"
+                >
+                    <i class="bi bi-person-plus"></i>
+                    Add Worker
+                </button>
+
+            </div>
+
+
+            <div class="admin-filter-bar worker-admin-filter">
+
+                <div class="admin-search">
+
+                    <i class="bi bi-search"></i>
+
+                    <input
+                        type="text"
+                        id="adminWorkerSearch"
+                        placeholder="Search by name, ID or phone..."
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>Department</label>
+
+                    <select id="adminWorkerDepartment">
+
+                        <option value="all">
+                            All Departments
+                        </option>
+
+                        <option value="Carpentry">
+                            Carpentry
+                        </option>
+
+                        <option value="Polishing">
+                            Polishing
+                        </option>
+
+                        <option value="Finishing">
+                            Finishing
+                        </option>
+
+                        <option value="Production">
+                            Production
+                        </option>
+
+                        <option value="Warehouse">
+                            Warehouse
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>Status</label>
+
+                    <select id="adminWorkerStatus">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="active">
+                            Active
+                        </option>
+
+                        <option value="inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h3>Worker Directory</h3>
+
+                        <p>
+                            All registered Timber Mart workers
+                        </p>
+
+                    </div>
+
+                    <span class="worker-count" id="adminWorkerCount">
+                        -- Workers
+                    </span>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table admin-table"
+                        id="adminWorkersTable"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Worker</th>
+                                <th>ID</th>
+                                <th>Department</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="adminWorkersBody">
+
+                            <tr>
+                                <td colspan="6" class="tm-table-message">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    <span>Loading workers...</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/js/admin.js"></script>
+
+<%- include("../components/footer") %>

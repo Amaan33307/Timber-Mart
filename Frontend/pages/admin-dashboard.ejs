@@ -1,0 +1,312 @@
+<%- include("../components/header") %>
+
+<div class="dashboard-page">
+
+    <%- include("../components/navbar") %>
+
+    <div class="dashboard-layout">
+
+        <%- include("../components/sidebar") %>
+
+
+        <main class="dashboard-content" id="adminDashboardPage">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        ADMINISTRATION
+                    </p>
+
+                    <h1>Admin Dashboard</h1>
+
+                    <p>
+                        Monitor your workforce and daily operations.
+                    </p>
+
+                </div>
+
+                <div class="today-date">
+                    <i class="bi bi-calendar3"></i>
+                    <span id="adminDate"></span>
+                </div>
+
+            </div>
+
+
+            <div id="adminWeeklyOffNotice" class="tm-notice d-none">
+                <i class="bi bi-cup-hot"></i>
+                <span>Today is a weekly off day. Workers who did not check in are not counted as absent.</span>
+            </div>
+
+
+            <!-- MAIN STATISTICS -->
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        <div>
+                            <span>Total Workers</span>
+                            <h3 id="statTotalWorkers">--</h3>
+                            <small id="statTotalWorkersNote">&nbsp;</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon present">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+
+                        <div>
+                            <span>Present Today</span>
+                            <h3 id="statPresentToday">--</h3>
+                            <small id="statPresentNote">&nbsp;</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon absent">
+                            <i class="bi bi-person-x"></i>
+                        </div>
+
+                        <div>
+                            <span>Absent Today</span>
+                            <h3 id="statAbsentToday">--</h3>
+                            <small id="statAbsentNote">&nbsp;</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon late">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+
+                        <div>
+                            <span>Late Today</span>
+                            <h3 id="statLateToday">--</h3>
+                            <small id="statLateNote">&nbsp;</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- TODAY ATTENDANCE -->
+
+                <div class="col-lg-8">
+
+                    <div class="dashboard-card">
+
+                        <div class="card-heading">
+
+                            <div>
+                                <h3>Today's Attendance</h3>
+
+                                <p id="overviewSubtitle">
+                                    Current workforce attendance
+                                </p>
+                            </div>
+
+                            <a href="/admin-attendance">
+                                View All
+                            </a>
+
+                        </div>
+
+
+                        <div class="attendance-overview">
+
+                            <div class="overview-circle tm-ring" id="overviewRing">
+                                <strong id="overviewRate">--%</strong>
+                                <span>Present</span>
+                            </div>
+
+
+                            <div class="overview-details">
+
+                                <div class="overview-item">
+
+                                    <div>
+                                        <span class="overview-dot present-dot"></span>
+                                        Present
+                                    </div>
+
+                                    <strong id="overviewPresent">--</strong>
+
+                                </div>
+
+
+                                <div class="overview-item">
+
+                                    <div>
+                                        <span class="overview-dot absent-dot"></span>
+                                        Absent
+                                    </div>
+
+                                    <strong id="overviewAbsent">--</strong>
+
+                                </div>
+
+
+                                <div class="overview-item">
+
+                                    <div>
+                                        <span class="overview-dot late-dot"></span>
+                                        Late
+                                    </div>
+
+                                    <strong id="overviewLate">--</strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="col-lg-4">
+
+                    <div class="dashboard-card">
+
+                        <div class="card-heading">
+
+                            <div>
+                                <h3>Quick Actions</h3>
+                                <p>Common admin tasks</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="quick-actions">
+
+                            <a href="/admin-workers">
+                                <i class="bi bi-person-plus"></i>
+                                <span>Add / Manage Workers</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+
+                            <a href="/admin-attendance">
+                                <i class="bi bi-calendar-check"></i>
+                                <span>View Attendance</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+
+                            <a href="/workers">
+                                <i class="bi bi-person-lines-fill"></i>
+                                <span>Worker Directory</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT WORKERS -->
+
+            <div class="dashboard-card admin-recent-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h3>Recently Added Workers</h3>
+
+                        <p>
+                            Latest workers registered in Timber Mart
+                        </p>
+                    </div>
+
+                    <a href="/admin-workers">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table admin-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Worker</th>
+                                <th>ID</th>
+                                <th>Department</th>
+                                <th>Joined</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="recentWorkersBody">
+
+                            <tr>
+                                <td colspan="5" class="tm-table-message">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    <span>Loading workers...</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/js/admin.js"></script>
+
+<%- include("../components/footer") %>

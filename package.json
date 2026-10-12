@@ -1,0 +1,30 @@
+{
+  "name": "timber-mart",
+  "version": "1.0.0",
+  "description": "Timber Mart Management System",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "create-admin": "node backend/scripts/createAdmin.js"
+  },
+  "keywords": [
+    "timber",
+    "management",
+    "attendance",
+    "worker"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mongoose": "^9.9.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

@@ -1,0 +1,299 @@
+<%- include("../components/header") %>
+
+<div class="dashboard-page">
+
+    <%- include("../components/navbar") %>
+
+    <div class="dashboard-layout">
+
+        <%- include("../components/sidebar") %>
+
+        <main class="dashboard-content">
+
+            <!-- Welcome -->
+            <div class="welcome-section">
+
+                <div>
+                    <p class="dashboard-label">
+                        TIMBER MART MANAGEMENT SYSTEM
+                    </p>
+
+                    <h1>
+                        <span id="greetingText">Welcome back</span>,
+                        <%= currentUser.name.split(" ")[0] %> 👋
+                    </h1>
+
+                    <p>
+                        Here's your attendance and work overview for today.
+                    </p>
+                </div>
+
+                <div class="today-date">
+                    <i class="bi bi-calendar3"></i>
+                    <span id="currentDate"></span>
+                </div>
+
+            </div>
+
+
+            <div id="weeklyOffNotice" class="tm-notice d-none">
+                <i class="bi bi-cup-hot"></i>
+                <span>Today is a weekly off day. You can still check in if you are working.</span>
+            </div>
+
+
+            <!-- Statistics -->
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+
+                        <div>
+                            <p>Today's Status</p>
+                            <h3 id="attendanceStatus">
+                                Loading...
+                            </h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                        </div>
+
+                        <div>
+                            <p>Check In</p>
+                            <h3 id="checkInTime">--:--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-box-arrow-right"></i>
+                        </div>
+
+                        <div>
+                            <p>Check Out</p>
+                            <h3 id="checkOutTime">--:--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+
+                        <div>
+                            <p>This Month</p>
+                            <h3 id="monthPresentDays">-- Days</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- Attendance -->
+                <div class="col-lg-7">
+
+                    <div class="dashboard-card attendance-action-card">
+
+                        <div class="card-heading">
+
+                            <div>
+                                <h3>Today's Attendance</h3>
+                                <p id="workingHoursText">Record your working hours</p>
+                            </div>
+
+                            <i class="bi bi-calendar-check"></i>
+
+                        </div>
+
+
+                        <div class="attendance-clock">
+
+                            <div class="clock-circle">
+                                <i class="bi bi-clock"></i>
+                            </div>
+
+                            <h2 id="liveTime">00:00:00</h2>
+
+                            <p>Current Time</p>
+
+                        </div>
+
+
+                        <div class="attendance-buttons">
+
+                            <button
+                                class="btn attendance-btn check-in-btn"
+                                id="checkInBtn"
+                                disabled
+                            >
+                                <i class="bi bi-box-arrow-in-right"></i>
+                                Check In
+                            </button>
+
+                            <button
+                                class="btn attendance-btn check-out-btn"
+                                id="checkOutBtn"
+                                disabled
+                            >
+                                <i class="bi bi-box-arrow-right"></i>
+                                Check Out
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Profile -->
+                <div class="col-lg-5">
+
+                    <div class="dashboard-card profile-card">
+
+                        <div class="profile-header">
+
+                            <div class="profile-avatar">
+                                <i class="bi bi-person"></i>
+                            </div>
+
+                            <div>
+                                <h3>Worker Profile</h3>
+                                <p>Employee Information</p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-details">
+
+                            <div>
+                                <span>Worker Name</span>
+                                <strong><%= currentUser.name %></strong>
+                            </div>
+
+                            <div>
+                                <span>Worker ID</span>
+                                <strong><%= currentUser.workerId || "--" %></strong>
+                            </div>
+
+                            <div>
+                                <span>Department</span>
+                                <strong><%= currentUser.department || "--" %></strong>
+                            </div>
+
+                            <div>
+                                <span>Status</span>
+                                <strong class="status-active">
+                                    <%= currentUser.status === "active" ? "Active" : "Inactive" %>
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <a href="/profile" class="profile-btn">
+                            View Profile
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Recent Attendance -->
+            <div class="dashboard-card recent-attendance">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h3>Recent Attendance</h3>
+                        <p>Your latest attendance records</p>
+                    </div>
+
+                    <a href="/attendance">
+                        View All
+                    </a>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table class="table attendance-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Date</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Working Hours</th>
+                                <th>Status</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="recentAttendanceBody">
+
+                            <tr>
+                                <td colspan="5" class="tm-table-message">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    <span>Loading attendance records...</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/js/dashboard.js"></script>
+
+<%- include("../components/footer") %>

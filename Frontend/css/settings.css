@@ -1,0 +1,244 @@
+/* ========================================
+   SETTINGS
+======================================== */
+
+.settings-menu {
+    background: #ffffff;
+    border: 1px solid #e6ddd4;
+    border-radius: 14px;
+    padding: 10px;
+}
+
+.settings-menu-item {
+    width: 100%;
+    height: 46px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #75685d;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 13px;
+    font-size: 13px;
+    text-align: left;
+}
+
+.settings-menu-item:hover {
+    background: #f7f0e9;
+    color: #6b4226;
+}
+
+.settings-menu-item.active {
+    background: #6b4226;
+    color: #ffffff;
+}
+
+
+/* ========================================
+   SECTIONS
+======================================== */
+
+.settings-section {
+    display: none;
+}
+
+.settings-section.active {
+    display: block;
+}
+
+
+/* ========================================
+   PROFILE
+======================================== */
+
+.settings-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 22px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee8e2;
+}
+
+.settings-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 16px;
+    background: #6b4226;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.settings-profile h4 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    color: #403229;
+}
+
+.settings-profile p {
+    margin: 0;
+    color: #95887d;
+    font-size: 12px;
+}
+
+
+/* ========================================
+   FORMS
+======================================== */
+
+.settings-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.settings-password-form {
+    max-width: 600px;
+    margin-top: 25px;
+}
+
+.settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.settings-field label {
+    color: #67594e;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.settings-field input {
+    height: 43px;
+    padding: 0 13px;
+    border: 1px solid #ddd3c9;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #45382e;
+    font-size: 13px;
+    outline: none;
+}
+
+.settings-field input:focus {
+    border-color: #8b5a32;
+}
+
+.settings-field input:disabled {
+    background: #f7f3ef;
+    color: #968a80;
+}
+
+
+/* ========================================
+   SAVE BUTTON
+======================================== */
+
+.settings-save-btn {
+    height: 43px;
+    margin-top: 25px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 8px;
+    background: #6b4226;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.settings-save-btn:hover {
+    background: #4f301c;
+}
+
+
+/* ========================================
+   NOTIFICATIONS
+======================================== */
+
+.notification-setting {
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #eee8e2;
+}
+
+.notification-setting:last-child {
+    border-bottom: none;
+}
+
+.notification-setting strong {
+    display: block;
+    color: #403229;
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.notification-setting span {
+    color: #95887d;
+    font-size: 11px;
+}
+
+
+/* ========================================
+   TOGGLE
+======================================== */
+
+.toggle {
+    position: relative;
+    width: 42px;
+    height: 23px;
+    flex-shrink: 0;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle span {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    background: #d8d0c8;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.toggle span::after {
+    content: "";
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 3px;
+    left: 3px;
+    border-radius: 50%;
+    background: #ffffff;
+    transition: 0.2s;
+}
+
+.toggle input:checked + span {
+    background: #6b4226;
+}
+
+.toggle input:checked + span::after {
+    transform: translateX(19px);
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+
+    .settings-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

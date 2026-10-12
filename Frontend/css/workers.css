@@ -1,0 +1,666 @@
+/* ========================================
+   WORKER MANAGEMENT
+======================================== */
+
+
+/* ========================================
+   PAGE HEADER
+======================================== */
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.page-header h1 {
+    margin: 0 0 6px;
+    font-size: 29px;
+    font-weight: 700;
+    color: #30231b;
+}
+
+.page-header p:not(.dashboard-label) {
+    color: #92857a;
+    font-size: 14px;
+    margin: 0;
+}
+
+.add-worker-btn {
+    height: 44px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 9px;
+    background: #6b4226;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.add-worker-btn:hover {
+    background: #4f301c;
+}
+
+
+/* ========================================
+   WORKER STATISTICS
+======================================== */
+
+.worker-stat-card {
+    height: 100%;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e6ddd4;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 3px 12px rgba(55, 39, 28, 0.03);
+}
+
+.worker-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 11px;
+    background: #f2e7dc;
+    color: #704724;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.worker-stat-icon.active-worker {
+    background: #e5f2e7;
+    color: #4d8055;
+}
+
+.worker-stat-icon.working-worker {
+    background: #eee8f5;
+    color: #6b5c83;
+}
+
+.worker-stat-icon.absent-worker {
+    background: #f8e5e2;
+    color: #a04e44;
+}
+
+.worker-stat-card span {
+    display: block;
+    color: #95887d;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.worker-stat-card h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #33271f;
+}
+
+
+/* ========================================
+   SEARCH & FILTER
+======================================== */
+
+.worker-controls {
+    background: #ffffff;
+    border: 1px solid #e6ddd4;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.worker-search {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+}
+
+.worker-search i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #998c82;
+}
+
+.worker-search input {
+    width: 100%;
+    height: 42px;
+    padding: 0 15px 0 42px;
+    border: 1px solid #ddd3c9;
+    border-radius: 8px;
+    outline: none;
+    font-size: 13px;
+    color: #45382e;
+}
+
+.worker-search input:focus {
+    border-color: #8b5a32;
+}
+
+.worker-controls select {
+    height: 42px;
+    min-width: 175px;
+    border: 1px solid #ddd3c9;
+    border-radius: 8px;
+    padding: 0 12px;
+    background: #ffffff;
+    color: #5c4e43;
+    font-size: 13px;
+    outline: none;
+}
+
+.worker-controls select:focus {
+    border-color: #8b5a32;
+}
+
+
+/* ========================================
+   WORKERS TABLE
+======================================== */
+
+.workers-card {
+    overflow: hidden;
+}
+
+.worker-count {
+    padding: 6px 11px;
+    background: #f4ebe3;
+    color: #704724;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.workers-table {
+    margin-top: 22px;
+    vertical-align: middle;
+}
+
+.workers-table th {
+    padding: 14px 10px;
+    background: #faf7f4;
+    color: #81746a;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e5ddd5;
+}
+
+.workers-table td {
+    padding: 15px 10px;
+    color: #55473c;
+    font-size: 13px;
+    border-bottom: 1px solid #f0ebe6;
+}
+
+.workers-table tbody tr:hover {
+    background: #fdfaf7;
+}
+
+
+/* ========================================
+   WORKER INFO
+======================================== */
+
+.worker-info {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 190px;
+}
+
+.worker-avatar {
+    width: 39px;
+    height: 39px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #eaded1;
+    color: #6b4226;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.worker-info strong {
+    display: block;
+    color: #403229;
+    font-size: 13px;
+}
+
+.worker-info small {
+    display: block;
+    margin-top: 2px;
+    color: #9a8d83;
+    font-size: 10px;
+}
+
+
+/* ========================================
+   BADGES
+======================================== */
+
+.department-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    background: #f5eee8;
+    color: #765033;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.worker-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.worker-status.active {
+    background: #e5f2e7;
+    color: #4d8055;
+}
+
+.worker-status.inactive {
+    background: #f2e8e6;
+    color: #9a574e;
+}
+
+.view-worker-btn {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #ddd1c6;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b4226;
+    text-decoration: none;
+}
+
+.view-worker-btn:hover {
+    background: #f5eee8;
+}
+
+
+/* ========================================
+   WORKER DETAILS
+======================================== */
+
+.details-back {
+    margin-bottom: 20px;
+}
+
+.details-back a {
+    color: #765033;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.details-back a:hover {
+    color: #4f301c;
+}
+
+.worker-profile-header {
+    background: #ffffff;
+    border: 1px solid #e6ddd4;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.large-worker-avatar {
+    width: 75px;
+    height: 75px;
+    border-radius: 18px;
+    background: #6b4226;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.worker-profile-main {
+    flex: 1;
+}
+
+.worker-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.worker-title-row h1 {
+    margin: 0 0 5px;
+    color: #30231b;
+    font-size: 26px;
+}
+
+.worker-title-row p:not(.dashboard-label) {
+    color: #95887d;
+    margin: 0;
+    font-size: 13px;
+}
+
+.edit-worker-btn {
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid #d8cabe;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #6b4226;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   INFORMATION GRID
+======================================== */
+
+.worker-information-grid {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+}
+
+.information-item {
+    padding: 17px 12px;
+    border-bottom: 1px solid #f0ebe6;
+}
+
+.information-item span {
+    display: block;
+    color: #95887d;
+    font-size: 11px;
+    margin-bottom: 6px;
+}
+
+.information-item strong {
+    color: #403229;
+    font-size: 13px;
+}
+
+.active-text {
+    color: #4d8055 !important;
+}
+
+
+/* ========================================
+   ATTENDANCE SUMMARY
+======================================== */
+
+.worker-attendance-summary {
+    margin-top: 25px;
+}
+
+.attendance-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 25px;
+}
+
+.attendance-mini-grid > div {
+    text-align: center;
+    padding: 12px;
+    border-right: 1px solid #eee8e2;
+}
+
+.attendance-mini-grid > div:last-child {
+    border-right: none;
+}
+
+.attendance-mini-grid span {
+    display: block;
+    color: #95887d;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.attendance-mini-grid strong {
+    color: #403229;
+    font-size: 20px;
+}
+
+
+/* ========================================
+   QUICK PROFILE
+======================================== */
+
+.quick-profile-card {
+    text-align: center;
+}
+
+.quick-profile-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    background: #f2e7dc;
+    color: #6b4226;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+}
+
+.quick-profile-card h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.quick-profile-card > p {
+    color: #95887d;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+.quick-profile-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid #eee8e2;
+    font-size: 12px;
+}
+
+.quick-profile-row span {
+    color: #95887d;
+}
+
+.quick-profile-row strong {
+    color: #403229;
+}
+
+.deactivate-btn {
+    width: 100%;
+    height: 42px;
+    margin-top: 22px;
+    border: 1px solid #e0c6c1;
+    border-radius: 8px;
+    background: #fff8f7;
+    color: #9a4e44;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   PROFILE PAGE
+======================================== */
+
+.profile-main-card {
+    text-align: center;
+    padding: 35px 25px;
+}
+
+.profile-main-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 18px;
+    border-radius: 25px;
+    background: #6b4226;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.profile-main-card h2 {
+    color: #30231b;
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.profile-role {
+    color: #95887d;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.profile-divider {
+    height: 1px;
+    background: #eee8e2;
+    margin: 25px 0;
+}
+
+.profile-contact {
+    text-align: left;
+}
+
+.profile-contact div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+.profile-contact i {
+    color: #704724;
+    font-size: 16px;
+}
+
+.profile-contact span {
+    color: #66584d;
+    font-size: 12px;
+}
+
+.profile-work-card {
+    margin-top: 25px;
+}
+
+.profile-work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.profile-work-grid span {
+    display: block;
+    color: #95887d;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.profile-work-grid strong {
+    color: #403229;
+    font-size: 13px;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 850px) {
+
+    .worker-controls {
+        flex-wrap: wrap;
+    }
+
+    .worker-search {
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    .worker-controls select {
+        flex: 1;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .add-worker-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .worker-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .worker-search {
+        min-width: 0;
+    }
+
+    .worker-controls select {
+        width: 100%;
+    }
+
+    .workers-table {
+        min-width: 850px;
+    }
+
+    .worker-profile-header {
+        align-items: flex-start;
+    }
+
+    .worker-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .worker-information-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .attendance-mini-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .attendance-mini-grid > div:nth-child(2) {
+        border-right: none;
+    }
+
+}

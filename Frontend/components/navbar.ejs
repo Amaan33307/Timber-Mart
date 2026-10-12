@@ -1,0 +1,90 @@
+<%
+    const navUser = currentUser || {};
+    const navHome = navUser.role === "admin" ? "/admin-dashboard" : "/dashboard";
+    const navInitials = (navUser.name || "?")
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part.charAt(0).toUpperCase())
+        .join("");
+    const navRoleLabel = navUser.role === "admin"
+        ? "Administrator"
+        : (navUser.workerId ? navUser.workerId + " · " + (navUser.department || "Worker") : "Worker");
+%>
+
+<nav class="tm-navbar">
+
+    <a href="<%= navHome %>" class="tm-brand">
+
+        <div class="tm-brand-icon">
+            <i class="bi bi-door-open"></i>
+        </div>
+
+        <div>
+            <strong>Timber Mart</strong>
+            <small>Management System</small>
+        </div>
+
+    </a>
+
+    <div class="navbar-right">
+
+        <div class="notification-icon">
+            <i class="bi bi-bell"></i>
+            <span></span>
+        </div>
+
+        <div class="dropdown">
+
+            <div
+                class="nav-profile"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+
+                <div class="nav-avatar">
+                    <%= navInitials %>
+                </div>
+
+                <div class="nav-user">
+                    <strong><%= navUser.name || "User" %></strong>
+                    <small><%= navRoleLabel %></small>
+                </div>
+
+                <i class="bi bi-chevron-down"></i>
+
+            </div>
+
+            <ul class="dropdown-menu dropdown-menu-end tm-dropdown">
+
+                <li>
+                    <a class="dropdown-item" href="/profile">
+                        <i class="bi bi-person"></i>
+                        My Profile
+                    </a>
+                </li>
+
+                <li>
+                    <a class="dropdown-item" href="/settings">
+                        <i class="bi bi-gear"></i>
+                        Settings
+                    </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+                    <a class="dropdown-item text-danger" href="/" data-logout>
+                        <i class="bi bi-box-arrow-right"></i>
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>

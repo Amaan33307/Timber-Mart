@@ -1,0 +1,137 @@
+<%
+    const sideUser = currentUser || {};
+    const isAdmin = sideUser.role === "admin";
+    const path = currentPath || "";
+    const activeIf = (...paths) => paths.includes(path) ? "active" : "";
+%>
+
+<aside class="tm-sidebar">
+
+    <div class="sidebar-menu">
+
+        <% if (isAdmin) { %>
+
+            <p class="menu-title">
+                ADMIN MENU
+            </p>
+
+
+            <a
+                href="/admin-dashboard"
+                class="sidebar-link <%= activeIf('/admin-dashboard') %>"
+            >
+                <i class="bi bi-grid-1x2"></i>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="/admin-workers"
+                class="sidebar-link <%= activeIf('/admin-workers', '/worker-details') %>"
+            >
+                <i class="bi bi-people"></i>
+                <span>Workers</span>
+            </a>
+
+
+            <a
+                href="/admin-attendance"
+                class="sidebar-link <%= activeIf('/admin-attendance') %>"
+            >
+                <i class="bi bi-calendar-check"></i>
+                <span>Attendance</span>
+            </a>
+
+
+            <a
+                href="/workers"
+                class="sidebar-link <%= activeIf('/workers') %>"
+            >
+                <i class="bi bi-person-lines-fill"></i>
+                <span>Worker Directory</span>
+            </a>
+
+
+            <p class="menu-title">
+                SYSTEM
+            </p>
+
+        <% } else { %>
+
+            <p class="menu-title">
+                MAIN MENU
+            </p>
+
+
+            <a
+                href="/dashboard"
+                class="sidebar-link <%= activeIf('/dashboard') %>"
+            >
+                <i class="bi bi-grid-1x2"></i>
+                <span>Dashboard</span>
+            </a>
+
+
+            <a
+                href="/attendance"
+                class="sidebar-link <%= activeIf('/attendance') %>"
+            >
+                <i class="bi bi-calendar-check"></i>
+                <span>My Attendance</span>
+            </a>
+
+
+            <p class="menu-title">
+                ACCOUNT
+            </p>
+
+        <% } %>
+
+
+        <a
+            href="/profile"
+            class="sidebar-link <%= activeIf('/profile') %>"
+        >
+            <i class="bi bi-person"></i>
+            <span>My Profile</span>
+        </a>
+
+
+        <a
+            href="/settings"
+            class="sidebar-link <%= activeIf('/settings') %>"
+        >
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+        </a>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <a
+            href="/"
+            class="sidebar-link logout-link"
+            data-logout
+        >
+            <i class="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+        </a>
+
+
+        <div class="sidebar-footer">
+
+            <small>
+                Timber Mart
+            </small>
+
+            <span>
+                <%= isAdmin ? "Admin" : "v1.0" %>
+            </span>
+
+        </div>
+
+    </div>
+
+</aside>

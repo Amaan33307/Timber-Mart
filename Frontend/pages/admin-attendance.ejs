@@ -1,0 +1,264 @@
+<%- include("../components/header") %>
+
+<div class="dashboard-page">
+
+    <%- include("../components/navbar") %>
+
+    <div class="dashboard-layout">
+
+        <%- include("../components/sidebar") %>
+
+
+        <main class="dashboard-content" id="adminAttendancePage">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        ADMINISTRATION
+                    </p>
+
+                    <h1>Attendance Management</h1>
+
+                    <p>
+                        Monitor attendance of all Timber Mart workers.
+                    </p>
+
+                </div>
+
+                <button
+                    class="admin-export-btn"
+                    id="exportAttendance"
+                >
+                    <i class="bi bi-download"></i>
+                    Export Report
+                </button>
+
+            </div>
+
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon present">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+
+                        <div>
+                            <span>Present</span>
+                            <h3 id="attStatPresent">--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon absent">
+                            <i class="bi bi-x-circle"></i>
+                        </div>
+
+                        <div>
+                            <span>Absent</span>
+                            <h3 id="attStatAbsent">--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon late">
+                            <i class="bi bi-clock"></i>
+                        </div>
+
+                        <div>
+                            <span>Late</span>
+                            <h3 id="attStatLate">--</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="admin-stat-card">
+
+                        <div class="admin-stat-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+
+                        <div>
+                            <span>Attendance Rate</span>
+                            <h3 id="attStatRate">--%</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-filter-bar">
+
+                <div>
+                    <label>Date</label>
+
+                    <input
+                        type="date"
+                        id="adminAttendanceDate"
+                    >
+                </div>
+
+
+                <div>
+                    <label>Department</label>
+
+                    <select id="adminDepartmentFilter">
+
+                        <option value="all">
+                            All Departments
+                        </option>
+
+                        <option value="Carpentry">
+                            Carpentry
+                        </option>
+
+                        <option value="Polishing">
+                            Polishing
+                        </option>
+
+                        <option value="Finishing">
+                            Finishing
+                        </option>
+
+                        <option value="Production">
+                            Production
+                        </option>
+
+                        <option value="Warehouse">
+                            Warehouse
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+                    <label>Status</label>
+
+                    <select id="adminAttendanceFilter">
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="Present">
+                            Present
+                        </option>
+
+                        <option value="Absent">
+                            Absent
+                        </option>
+
+                        <option value="Late">
+                            Late
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div id="attendanceWeeklyOffNotice" class="tm-notice d-none">
+                <i class="bi bi-cup-hot"></i>
+                <span>This date is a weekly off day. Only workers who checked in are listed.</span>
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h3 id="attendanceTableTitle">Today's Attendance Records</h3>
+
+                        <p id="attendanceTableDate">
+                            --
+                        </p>
+
+                    </div>
+
+                    <i class="bi bi-calendar-check"></i>
+
+                </div>
+
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table admin-table"
+                        id="adminAttendanceTable"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Worker</th>
+                                <th>Department</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Hours</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="adminAttendanceBody">
+
+                            <tr>
+                                <td colspan="6" class="tm-table-message">
+                                    <i class="bi bi-hourglass-split"></i>
+                                    <span>Loading attendance...</span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/js/admin.js"></script>
+
+<%- include("../components/footer") %>

@@ -1,0 +1,365 @@
+<%- include("../components/header") %>
+
+<div class="dashboard-page">
+
+    <%- include("../components/navbar") %>
+
+    <div class="dashboard-layout">
+
+        <%- include("../components/sidebar") %>
+
+        <main class="dashboard-content" id="workerDetailsPage">
+
+            <div class="details-back">
+
+                <a href="<%= currentUser.role === 'admin' ? '/admin-workers' : '/dashboard' %>">
+                    <i class="bi bi-arrow-left"></i>
+                    Back to Workers
+                </a>
+
+            </div>
+
+
+            <% if (currentUser.role !== "admin") { %>
+
+                <div class="dashboard-card">
+
+                    <div class="tm-restricted">
+
+                        <i class="bi bi-shield-lock"></i>
+
+                        <h3>Worker details are for administrators</h3>
+
+                        <p>
+                            You can view your own information on
+                            <a href="/profile">My Profile</a>.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            <% } else { %>
+
+            <div id="workerNotFound" class="dashboard-card d-none">
+
+                <div class="tm-restricted">
+
+                    <i class="bi bi-person-exclamation"></i>
+
+                    <h3>Worker not found</h3>
+
+                    <p id="workerNotFoundMessage">
+                        This worker does not exist or the link is incorrect.
+                    </p>
+
+                    <a href="/admin-workers" class="tm-btn-primary mt-2">
+                        View All Workers
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div id="workerDetailsContent">
+
+            <!-- Profile Header -->
+            <div class="worker-profile-header">
+
+                <div class="large-worker-avatar" id="detailAvatar">
+                    --
+                </div>
+
+                <div class="worker-profile-main">
+
+                    <div class="worker-title-row">
+
+                        <div>
+
+                            <p class="dashboard-label">
+                                WORKER PROFILE
+                            </p>
+
+                            <h1 id="detailName">Loading...</h1>
+
+                            <p>
+                                Worker ID: <span id="detailWorkerIdTop">--</span>
+                            </p>
+
+                        </div>
+
+                        <span id="detailStatusBadge" class="worker-status active">
+                            --
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Information -->
+            <div class="row g-4">
+
+                <div class="col-lg-8">
+
+                    <div class="dashboard-card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <h3>Personal Information</h3>
+
+                                <p>
+                                    Worker contact and employment details
+                                </p>
+
+                            </div>
+
+                            <button
+                                class="edit-worker-btn"
+                                id="editWorkerBtn"
+                                disabled
+                            >
+                                <i class="bi bi-pencil"></i>
+                                Edit
+                            </button>
+
+                        </div>
+
+
+                        <div class="worker-information-grid">
+
+                            <div class="information-item">
+
+                                <span>Full Name</span>
+
+                                <strong id="detailFullName">--</strong>
+
+                            </div>
+
+
+                            <div class="information-item">
+
+                                <span>Worker ID</span>
+
+                                <strong id="detailWorkerId">--</strong>
+
+                            </div>
+
+
+                            <div class="information-item">
+
+                                <span>Email Address</span>
+
+                                <strong id="detailEmail">--</strong>
+
+                            </div>
+
+
+                            <div class="information-item">
+
+                                <span>Phone Number</span>
+
+                                <strong id="detailPhone">--</strong>
+
+                            </div>
+
+
+                            <div class="information-item">
+
+                                <span>Department</span>
+
+                                <strong id="detailDepartment">--</strong>
+
+                            </div>
+
+
+                            <div class="information-item">
+
+                                <span>Joining Date</span>
+
+                                <strong id="detailJoined">--</strong>
+
+                            </div>
+
+
+                            <div class="information-item">
+
+                                <span>Role</span>
+
+                                <strong id="detailRole">--</strong>
+
+                            </div>
+
+
+                            <div class="information-item">
+
+                                <span>Account Status</span>
+
+                                <strong id="detailStatusText">--</strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Attendance Summary -->
+                    <div class="dashboard-card worker-attendance-summary">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <h3>Attendance Summary</h3>
+
+                                <p id="detailSummaryMonth">
+                                    Current month overview
+                                </p>
+
+                            </div>
+
+                            <a href="/admin-attendance">
+                                View Attendance
+                            </a>
+
+                        </div>
+
+
+                        <div class="attendance-mini-grid">
+
+                            <div>
+                                <span>Present</span>
+                                <strong id="detailPresent">--</strong>
+                            </div>
+
+                            <div>
+                                <span>Absent</span>
+                                <strong id="detailAbsent">--</strong>
+                            </div>
+
+                            <div>
+                                <span>Late</span>
+                                <strong id="detailLate">--</strong>
+                            </div>
+
+                            <div>
+                                <span>Rate</span>
+                                <strong id="detailRate">--</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="table-responsive mt-4">
+
+                            <table class="table attendance-table mb-0">
+
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Check In</th>
+                                        <th>Check Out</th>
+                                        <th>Hours</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="detailRecentBody">
+
+                                    <tr>
+                                        <td colspan="5" class="tm-table-message">
+                                            <i class="bi bi-hourglass-split"></i>
+                                            <span>Loading...</span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Right Side -->
+                <div class="col-lg-4">
+
+                    <div class="dashboard-card quick-profile-card">
+
+                        <div class="quick-profile-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <h3>Worker Account</h3>
+
+                        <p>
+                            Account information and access status.
+                        </p>
+
+
+                        <div class="quick-profile-row">
+
+                            <span>Account</span>
+
+                            <strong id="detailAccount">--</strong>
+
+                        </div>
+
+
+                        <div class="quick-profile-row">
+
+                            <span>Department</span>
+
+                            <strong id="detailDepartmentSide">--</strong>
+
+                        </div>
+
+
+                        <div class="quick-profile-row">
+
+                            <span>Role</span>
+
+                            <strong>
+                                Worker
+                            </strong>
+
+                        </div>
+
+
+                        <button
+                            class="deactivate-btn"
+                            id="deactivateBtn"
+                            disabled
+                        >
+                            <i class="bi bi-person-x"></i>
+                            Deactivate Worker
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            </div>
+
+            <% } %>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="/js/workers.js"></script>
+
+<%- include("../components/footer") %>

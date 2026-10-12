@@ -1,0 +1,592 @@
+<%- include("../components/header") %>
+
+<div class="dashboard-page">
+
+    <!-- ========================================
+         NAVBAR
+    ========================================= -->
+    <%- include("../components/navbar") %>
+
+
+    <div class="dashboard-layout">
+
+        <!-- ========================================
+             SIDEBAR
+        ========================================= -->
+        <%- include("../components/sidebar") %>
+
+
+        <!-- ========================================
+             MAIN CONTENT
+        ========================================= -->
+        <main class="dashboard-content">
+
+
+            <!-- ====================================
+                 PAGE HEADER
+            ===================================== -->
+
+            <div class="welcome-section">
+
+                <div>
+
+                    <p class="dashboard-label">
+                        ATTENDANCE MANAGEMENT
+                    </p>
+
+                    <h1>
+                        My Attendance
+                    </h1>
+
+                    <p>
+                        Track your daily attendance,
+                        working hours and attendance history.
+                    </p>
+
+                </div>
+
+
+                <div class="today-date">
+
+                    <i class="bi bi-calendar3"></i>
+
+                    <span id="attendanceDate">
+                        Loading...
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 TODAY'S ATTENDANCE
+            ===================================== -->
+
+            <div class="dashboard-card mb-4">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h3>
+                            Today's Attendance
+                        </h3>
+
+                        <p>
+                            Record your working hours for today.
+                        </p>
+
+                    </div>
+
+                    <i class="bi bi-clock-history"></i>
+
+                </div>
+
+
+                <div class="attendance-today-grid">
+
+
+                    <!-- STATUS -->
+
+                    <div class="today-attendance-item">
+
+                        <div class="today-attendance-icon">
+
+                            <i class="bi bi-calendar-check"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Today's Status
+                            </span>
+
+                            <h4 id="todayStatus">
+                                Not Checked In
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CHECK IN -->
+
+                    <div class="today-attendance-item">
+
+                        <div class="today-attendance-icon">
+
+                            <i class="bi bi-box-arrow-in-right"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Check In
+                            </span>
+
+                            <h4 id="checkInTime">
+                                --:--
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CHECK OUT -->
+
+                    <div class="today-attendance-item">
+
+                        <div class="today-attendance-icon">
+
+                            <i class="bi bi-box-arrow-right"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Check Out
+                            </span>
+
+                            <h4 id="checkOutTime">
+                                --:--
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WORKING HOURS -->
+
+                    <div class="today-attendance-item">
+
+                        <div class="today-attendance-icon">
+
+                            <i class="bi bi-hourglass-split"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Working Hours
+                            </span>
+
+                            <h4 id="workingHours">
+                                --:--
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     ATTENDANCE BUTTONS
+                ================================== -->
+
+                <div class="attendance-action-buttons">
+
+                    <button
+                        type="button"
+                        id="checkInBtn"
+                        class="btn attendance-check-in-btn"
+                        disabled
+                    >
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Check In
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="checkOutBtn"
+                        class="btn attendance-check-out-btn"
+                        disabled
+                    >
+
+                        <i class="bi bi-box-arrow-right"></i>
+
+                        Check Out
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 ATTENDANCE SUMMARY
+            ===================================== -->
+
+            <div class="row g-4 mb-4">
+
+
+                <!-- PRESENT -->
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="attendance-stat-card">
+
+                        <div
+                            class="attendance-stat-icon present-icon"
+                        >
+
+                            <i class="bi bi-check-circle"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Present Days
+                            </span>
+
+                            <h3 id="presentDays">
+                                0
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ABSENT -->
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="attendance-stat-card">
+
+                        <div
+                            class="attendance-stat-icon absent-icon"
+                        >
+
+                            <i class="bi bi-x-circle"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Absent Days
+                            </span>
+
+                            <h3 id="absentDays">
+                                0
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HOURS -->
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="attendance-stat-card">
+
+                        <div
+                            class="attendance-stat-icon hours-icon"
+                        >
+
+                            <i class="bi bi-clock"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Working Hours
+                            </span>
+
+                            <h3 id="totalWorkingHours">
+                                0h
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- RATE -->
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="attendance-stat-card">
+
+                        <div
+                            class="attendance-stat-icon rate-icon"
+                        >
+
+                            <i class="bi bi-graph-up"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Attendance Rate
+                            </span>
+
+                            <h3 id="attendanceRate">
+                                0%
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 FILTERS
+            ===================================== -->
+
+            <div class="attendance-controls">
+
+
+                <!-- MONTH -->
+
+                <div class="attendance-filter">
+
+                    <label for="monthFilter">
+                        Month
+                    </label>
+
+                    <select
+                        id="monthFilter"
+                    >
+
+                        <option value="">
+                            Loading...
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- STATUS -->
+
+                <div class="attendance-filter">
+
+                    <label for="statusFilter">
+                        Status
+                    </label>
+
+                    <select
+                        id="statusFilter"
+                    >
+
+                        <option value="all">
+                            All Status
+                        </option>
+
+                        <option value="Present">
+                            Present
+                        </option>
+
+                        <option value="Late">
+                            Late
+                        </option>
+
+                        <option value="Absent">
+                            Absent
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- EXPORT -->
+
+                <button
+                    type="button"
+                    class="attendance-export"
+                    id="exportAttendanceBtn"
+                >
+
+                    <i class="bi bi-download"></i>
+
+                    Export Report
+
+                </button>
+
+            </div>
+
+
+
+            <!-- ====================================
+                 ATTENDANCE RECORDS
+            ===================================== -->
+
+            <div class="dashboard-card attendance-main-card">
+
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <h3>
+                            Attendance Records
+                        </h3>
+
+                        <p id="attendanceRecordDescription">
+                            Your attendance history
+                        </p>
+
+                    </div>
+
+                    <i class="bi bi-calendar-check"></i>
+
+                </div>
+
+
+
+                <!-- TABLE -->
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table attendance-record-table"
+                        id="attendanceTable"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Day
+                                </th>
+
+                                <th>
+                                    Check In
+                                </th>
+
+                                <th>
+                                    Check Out
+                                </th>
+
+                                <th>
+                                    Working Hours
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="attendanceTableBody">
+
+                            <!-- JavaScript will load
+                                 real MongoDB records here -->
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="text-center py-5"
+                                >
+
+                                    <div class="text-muted">
+
+                                        <i
+                                            class="bi bi-hourglass-split fs-3 d-block mb-2"
+                                        ></i>
+
+                                        Loading attendance records...
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+
+                <!-- EMPTY MESSAGE -->
+
+                <div
+                    id="attendanceEmptyMessage"
+                    class="text-center py-5 d-none"
+                >
+
+                    <i
+                        class="bi bi-calendar-x fs-1"
+                    ></i>
+
+                    <h4 class="mt-3">
+                        No Attendance Records
+                    </h4>
+
+                    <p>
+                        Your attendance records will appear here
+                        after you check in.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================
+     ATTENDANCE JAVASCRIPT
+========================================= -->
+
+<script src="/js/attendance.js"></script>
+
+
+<%- include("../components/footer") %>
