@@ -1,3 +1,6 @@
+// Read settings (MONGO_URI, SESSION_SECRET, PORT) from .env
+require("./backend/utils/loadEnv");
+
 // Attendance rules (9:15 AM late, dates) use Indian time,
 // even when the server runs in another time zone (e.g. Vercel = UTC).
 process.env.TZ = process.env.APP_TIMEZONE || "Asia/Kolkata";

@@ -8,6 +8,8 @@
 // promoted to admin, activated and given the new password.
 // ========================================
 
+require("../utils/loadEnv");
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
