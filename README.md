@@ -42,3 +42,22 @@ Set in `backend/utils/attendanceUtils.js`:
 | GET / PUT | /api/admin/workers/:id (Mongo ID or TM-001) | admin |
 | PATCH | /api/admin/workers/:id/status `{ "status": "inactive" }` | admin |
 | GET | /api/admin/attendance?date=YYYY-MM-DD | admin |
+
+## Deploying on Vercel
+
+The project includes `api/index.js` and `vercel.json`, so it runs on Vercel as one serverless function.
+
+1. Create a free MongoDB Atlas cluster and copy its connection string
+   (for example `mongodb+srv://USER:PASSWORD@cluster0.xxxxx.mongodb.net/timber_mart`).
+   In Atlas → Network Access, allow `0.0.0.0/0` so Vercel can connect.
+2. In Vercel → Project → Settings → Environment Variables add:
+   - `MONGO_URI` – the Atlas connection string
+   - `SESSION_SECRET` – any long random text
+3. Redeploy. Create the admin from your computer against the same database:
+
+   ```
+   MONGO_URI="mongodb+srv://..." npm run create-admin -- "Admin Name" admin@email.com password 9876543210
+   ```
+
+Login sessions are stored in MongoDB (`sessions` collection), and the app uses
+Indian time (Asia/Kolkata) for the 9:15 AM late rule and attendance dates.

@@ -1,3 +1,7 @@
+// Attendance rules (9:15 AM late, dates) use Indian time,
+// even when the server runs in another time zone (e.g. Vercel = UTC).
+process.env.TZ = process.env.APP_TIMEZONE || "Asia/Kolkata";
+
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -42,8 +46,45 @@ const PORT =
 // MONGODB
 // ========================================
 
+// Local MongoDB by default; on Vercel set the MONGO_URI
+// environment variable to a MongoDB Atlas connection string.
 const MONGO_URI =
+    process.env.MONGO_URI ||
+    process.env.MONGODB_URI ||
     "mongodb://127.0.0.1:27017/timber_mart";
+
+const MongoSessionStore =
+    require("./backend/utils/sessionStore");
+
+let databasePromise = null;
+
+function connectDatabase() {
+
+    if (mongoose.connection.readyState === 1) {
+        return Promise.resolve();
+    }
+
+    if (!databasePromise) {
+
+        databasePromise =
+            mongoose
+                .connect(MONGO_URI, { serverSelectionTimeoutMS: 10000 })
+                .then(() => {
+                    console.log("MongoDB connected successfully.");
+                })
+                .catch((error) => {
+                    databasePromise = null;
+                    throw error;
+                });
+
+    }
+
+    return databasePromise;
+
+}
+
+// Vercel / proxies send HTTPS through a proxy
+app.set("trust proxy", 1);
 
 // ========================================
 // EJS
@@ -78,6 +119,46 @@ app.use(
 );
 
 // ========================================
+// STATIC FILES
+// ========================================
+
+app.use(
+    express.static(
+        path.join(
+            __dirname,
+            "Frontend"
+        )
+    )
+);
+
+// ========================================
+// DATABASE (connect once, reuse)
+// ========================================
+
+app.use(
+    async (req, res, next) => {
+
+        try {
+
+            await connectDatabase();
+
+            next();
+
+        } catch (error) {
+
+            console.error("MongoDB connection error:", error.message);
+
+            res.status(503).send(`
+                <h1>Database not available</h1>
+                <p>Timber Mart cannot reach the database right now. Please try again in a minute.</p>
+            `);
+
+        }
+
+    }
+);
+
+// ========================================
 // SESSION
 // ========================================
 
@@ -94,6 +175,9 @@ app.use(
         saveUninitialized:
             false,
 
+        store:
+            new MongoSessionStore(),
+
         cookie: {
 
             httpOnly:
@@ -101,6 +185,9 @@ app.use(
 
             sameSite:
                 "lax",
+
+            secure:
+                process.env.NODE_ENV === "production" ? "auto" : false,
 
             maxAge:
                 1000 *
@@ -111,19 +198,6 @@ app.use(
         }
 
     })
-);
-
-// ========================================
-// STATIC FILES
-// ========================================
-
-app.use(
-    express.static(
-        path.join(
-            __dirname,
-            "Frontend"
-        )
-    )
 );
 
 // ========================================
@@ -449,41 +523,44 @@ app.use(
 );
 
 // ========================================
-// START SERVER (after MongoDB connects)
+// START SERVER
+// Locally: `npm start` connects to MongoDB and listens.
+// On Vercel: api/index.js imports this app instead.
 // ========================================
 
-mongoose
-    .connect(MONGO_URI)
-    .then(() => {
+if (require.main === module) {
 
-        console.log(
-            "MongoDB connected successfully."
-        );
+    connectDatabase()
+        .then(() => {
 
-        app.listen(
-            PORT,
-            () => {
+            app.listen(
+                PORT,
+                () => {
 
-                console.log(
-                    "Timber Mart running at " +
-                    `http://localhost:${PORT}`
-                );
+                    console.log(
+                        "Timber Mart running at " +
+                        `http://localhost:${PORT}`
+                    );
 
-            }
-        );
+                }
+            );
 
-    })
-    .catch((error) => {
+        })
+        .catch((error) => {
 
-        console.error(
-            "MongoDB connection error:",
-            error.message
-        );
+            console.error(
+                "MongoDB connection error:",
+                error.message
+            );
 
-        console.error(
-            "Make sure MongoDB is running on 127.0.0.1:27017"
-        );
+            console.error(
+                "Make sure MongoDB is running on 127.0.0.1:27017 or set MONGO_URI"
+            );
 
-        process.exit(1);
+            process.exit(1);
 
-    });
+        });
+
+}
+
+module.exports = app;
